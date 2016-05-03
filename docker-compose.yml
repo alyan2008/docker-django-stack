@@ -1,8 +1,8 @@
 postgresql:
   image: jcalazan/postgresql
   environment:
-    - POSTGRESQL_DB=youtubeadl
-    - POSTGRESQL_USER=youtubeadl
+    - POSTGRESQL_DB=youtubeadl1
+    - POSTGRESQL_USER=youtubeadl1
     - POSTGRESQL_PASSWORD=password
   volumes:
     - ~/dockerfiles/youtube-audio-dl/postgresql:/var/lib/postgresql
@@ -23,7 +23,7 @@ celery:
     - DATABASE_HOST=postgresql
     - BROKER_URL=amqp://guest:guest@rabbitmq//
   working_dir: /youtube-audio-dl
-  command: bash -c "sleep 3 && celery -A youtubeadl worker -E -l info --concurrency=3"
+  command: bash -c "sleep 3 && celery -A youtubeadl1 worker -E -l info --concurrency=3"
   volumes:
     - .:/youtube-audio-dl
     - ~/dockerfiles/youtube-audio-dl/python:/usr/local/lib/python2.7
@@ -41,7 +41,7 @@ flower:
     - DATABASE_HOST=postgresql
     - BROKER_URL=amqp://guest:guest@rabbitmq//
   working_dir: /youtube-audio-dl
-  command: bash -c "sleep 3 && celery -A youtubeadl flower --port=5555"
+  command: bash -c "sleep 3 && celery -A youtubeadl1 flower --port=5555"
   volumes:
     - .:/youtube-audio-dl
     - ~/dockerfiles/youtube-audio-dl/python:/usr/local/lib/python2.7
